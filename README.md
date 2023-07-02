@@ -1,5 +1,12 @@
 # converters
 ## numeral_to_binary.py
 -Open terminal to
-  ```
-~/repos```
+```
+~/repos
+```
+-Then
+```
+mkdir converters
+cd converters
+vi numeral_to_binary.py
+```
