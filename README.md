@@ -1,16 +1,16 @@
 # converters
-## Simple Setup on ubuntu Jamy Jellyfish
+## Usage
 
-### 1) Open terminal [Ctrl + Alt + T]
+### 1) Clone the repository:
+``` bash
+git clone https://github.com/biotechlibrary/converters.git
 ```
-~/repos
-```
-### 2) Make and go to directory
-```
-mkdir converters
-cd converters
-vi numeral_to_binary.py
-```
-#### Copy & Paste 
+### 2) 
 ```
 python numeral_to_binary.py
+```
+
+
+
+
+
