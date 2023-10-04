@@ -1,0 +1,26 @@
+#This script converts .avi movie files into an .mp4
+
+import os
+from moviepy.editor import VideoFileClip
+
+def convert_avi_to_mp4(input_file_path, output_file_path):
+    try:
+        # Load the .avi file
+        video_clip = VideoFileClip(input_file_path)
+
+        # Write the video to a .mp4 file
+        video_clip.write_videofile(output_file_path, codec='libx264')
+
+        print(f"Conversion successful. .mp4 file saved as {output_file_path}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+if __name__ == "__main__":
+    input_path = input("Enter the full path of the .avi file you want to convert: ")
+    
+    if not os.path.exists(input_path):
+        print("File not found. Please provide a valid file path.")
+    else:
+        base_name = os.path.splitext(os.path.basename(input_path))[0]
+        output_path = f"{base_name}.mp4"
+        convert_avi_to_mp4(input_path, output_path)
