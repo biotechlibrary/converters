@@ -1,23 +1,41 @@
-#This script converts .avi movie files into an .mp4
-
 import os
-from moviepy.editor import VideoFileClip
+import cv2
 
-def convert_avi_to_mp4(input_file_path, output_file_path):
+def convert_avi_to_mp4(input_path, output_path):
     try:
-        # Load the .avi file
-        video_clip = VideoFileClip(input_file_path)
+        #Open the .avi file
+        cap = cv2.VideoCapture(input_path)
 
-        # Write the video to a .mp4 file
-        video_clip.write_videofile(output_file_path, codec='libx264')
+        #Get video informaiton
+        fps = int(cap.get(cv2.CAP_PROP_FPS))
+        frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-        print(f"Conversion successful. .mp4 file saved as {output_file_path}")
+        #Define codec for .mp4
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+
+        #create the VideoWriter object
+        out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
+
+        #Read and write frames until the end of the video
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            out.write(frame)
+        
+        #Release resources
+        cap.release()
+        out.release()
+        cv2.destroyAllWindows()
+
+        print(f"Conversion successful. .mp4 file saved as {output_path}")
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"An error occured: {str(e)}")
 
-if __name__ == "__main__":
-    input_path = input("Enter the full path of the .avi file you want to convert: ")
-    
+if __name__=="__main__":
+    input_path= input("Enter the full path of the .avi file you want to convert: ")
+
     if not os.path.exists(input_path):
         print("File not found. Please provide a valid file path.")
     else:
